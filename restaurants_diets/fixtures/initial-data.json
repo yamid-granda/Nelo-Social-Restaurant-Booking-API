@@ -1,0 +1,65 @@
+[
+  {
+    "model": "restaurants_diets.restaurantdiet",
+    "pk": "3e76a218-ae99-4486-8bfb-43bd55d46be6",
+    "fields": {
+      "created_at": "2024-07-04T03:16:57.345Z",
+      "restaurant_id": "91c25d35-ee5d-445e-ae71-abcbad45c754",
+      "diet_id": "0a15355d-26fc-4793-8f74-e51b0aa1d968"
+    }
+  },
+  {
+    "model": "restaurants_diets.restaurantdiet",
+    "pk": "6f29331d-52a5-48e5-9194-3064355eaede",
+    "fields": {
+      "created_at": "2024-07-04T03:17:18.350Z",
+      "restaurant_id": "0c827770-4328-49d5-a52a-2c36200f7eeb",
+      "diet_id": "0a15355d-26fc-4793-8f74-e51b0aa1d968"
+    }
+  },
+  {
+    "model": "restaurants_diets.restaurantdiet",
+    "pk": "70ddee38-5325-4a87-b194-e8510ba584fe",
+    "fields": {
+      "created_at": "2024-07-04T03:18:09.149Z",
+      "restaurant_id": "e295a2ba-a1f5-4904-a5d0-55b18e6b08ba",
+      "diet_id": "891efe06-d6da-41ac-92aa-90f0625cc519"
+    }
+  },
+  {
+    "model": "restaurants_diets.restaurantdiet",
+    "pk": "7f697b48-328e-4cc4-9950-84dd0ee741f7",
+    "fields": {
+      "created_at": "2024-07-04T03:17:35.968Z",
+      "restaurant_id": "ffff05d2-1faf-4765-8766-1918a9635a23",
+      "diet_id": "49b97347-cbf3-4678-b088-c667246cfef1"
+    }
+  },
+  {
+    "model": "restaurants_diets.restaurantdiet",
+    "pk": "9d4f7c88-119a-4968-961f-e45ece1b1653",
+    "fields": {
+      "created_at": "2024-07-04T03:17:46.736Z",
+      "restaurant_id": "ffff05d2-1faf-4765-8766-1918a9635a23",
+      "diet_id": "0a15355d-26fc-4793-8f74-e51b0aa1d968"
+    }
+  },
+  {
+    "model": "restaurants_diets.restaurantdiet",
+    "pk": "dc56e30f-a651-4d7d-8026-66926ccbeeb0",
+    "fields": {
+      "created_at": "2024-07-04T03:17:58.306Z",
+      "restaurant_id": "e295a2ba-a1f5-4904-a5d0-55b18e6b08ba",
+      "diet_id": "c939d04a-6c8a-48be-a5a7-8388f4266c16"
+    }
+  },
+  {
+    "model": "restaurants_diets.restaurantdiet",
+    "pk": "eda16d1c-8abb-45b2-831b-6add2ab33cc4",
+    "fields": {
+      "created_at": "2024-07-04T03:17:10.636Z",
+      "restaurant_id": "0c827770-4328-49d5-a52a-2c36200f7eeb",
+      "diet_id": "891efe06-d6da-41ac-92aa-90f0625cc519"
+    }
+  }
+]
