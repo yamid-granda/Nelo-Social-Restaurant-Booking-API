@@ -1,0 +1,362 @@
+[
+  {
+    "model": "tables.table",
+    "pk": "01e52b58-2c74-45fe-8c63-105b9a6455ed",
+    "fields": {
+      "created_at": "2024-07-04T19:53:36.165Z",
+      "restaurant_id": "0c827770-4328-49d5-a52a-2c36200f7eeb",
+      "name": "Mesa 3",
+      "capacity": 2
+    }
+  },
+  {
+    "model": "tables.table",
+    "pk": "037be4d5-8dcf-4b76-b247-e2ddd9a65a4d",
+    "fields": {
+      "created_at": "2024-07-04T19:58:09.709Z",
+      "restaurant_id": "2141d86a-6659-4588-8285-bffed042529e",
+      "name": "2",
+      "capacity": 2
+    }
+  },
+  {
+    "model": "tables.table",
+    "pk": "063a3f75-b5b8-4b40-a750-c1e974a7552f",
+    "fields": {
+      "created_at": "2024-07-04T19:59:18.869Z",
+      "restaurant_id": "2141d86a-6659-4588-8285-bffed042529e",
+      "name": "15",
+      "capacity": 6
+    }
+  },
+  {
+    "model": "tables.table",
+    "pk": "06556382-c08c-496b-9de5-fc994c418db9",
+    "fields": {
+      "created_at": "2024-07-04T19:58:43.524Z",
+      "restaurant_id": "2141d86a-6659-4588-8285-bffed042529e",
+      "name": "9",
+      "capacity": 4
+    }
+  },
+  {
+    "model": "tables.table",
+    "pk": "0be09250-afd0-48a4-a6df-8f5df899d791",
+    "fields": {
+      "created_at": "2024-07-04T19:58:29.991Z",
+      "restaurant_id": "2141d86a-6659-4588-8285-bffed042529e",
+      "name": "6",
+      "capacity": 4
+    }
+  },
+  {
+    "model": "tables.table",
+    "pk": "0e8f2e2f-ae1d-449c-a5e6-72611af0924c",
+    "fields": {
+      "created_at": "2024-07-04T19:59:39.324Z",
+      "restaurant_id": "e295a2ba-a1f5-4904-a5d0-55b18e6b08ba",
+      "name": "A",
+      "capacity": 2
+    }
+  },
+  {
+    "model": "tables.table",
+    "pk": "13fb2abe-c109-44b1-bde0-0f7397f964c6",
+    "fields": {
+      "created_at": "2024-07-04T19:50:57.580Z",
+      "restaurant_id": "91c25d35-ee5d-445e-ae71-abcbad45c754",
+      "name": "T3",
+      "capacity": 2
+    }
+  },
+  {
+    "model": "tables.table",
+    "pk": "36e9d1be-0fe4-4b51-95b1-346dc1fbe2f6",
+    "fields": {
+      "created_at": "2024-07-04T19:59:12.970Z",
+      "restaurant_id": "2141d86a-6659-4588-8285-bffed042529e",
+      "name": "13",
+      "capacity": 6
+    }
+  },
+  {
+    "model": "tables.table",
+    "pk": "3d58c57f-3340-479a-b4fd-c23259ac64b4",
+    "fields": {
+      "created_at": "2024-07-04T19:58:38.157Z",
+      "restaurant_id": "2141d86a-6659-4588-8285-bffed042529e",
+      "name": "8",
+      "capacity": 4
+    }
+  },
+  {
+    "model": "tables.table",
+    "pk": "485de0ee-28fc-4f9d-a7d7-cbfe085508b2",
+    "fields": {
+      "created_at": "2024-07-04T19:59:16.025Z",
+      "restaurant_id": "2141d86a-6659-4588-8285-bffed042529e",
+      "name": "14",
+      "capacity": 6
+    }
+  },
+  {
+    "model": "tables.table",
+    "pk": "4d54d46c-7f2c-41ad-a55a-8aa495a02c8c",
+    "fields": {
+      "created_at": "2024-07-04T19:56:11.044Z",
+      "restaurant_id": "ffff05d2-1faf-4765-8766-1918a9635a23",
+      "name": "Zapopan",
+      "capacity": 2
+    }
+  },
+  {
+    "model": "tables.table",
+    "pk": "5667f500-c3c5-492e-87da-15701b60cb50",
+    "fields": {
+      "created_at": "2024-07-04T19:57:47.048Z",
+      "restaurant_id": "ffff05d2-1faf-4765-8766-1918a9635a23",
+      "name": "Morelia",
+      "capacity": 6
+    }
+  },
+  {
+    "model": "tables.table",
+    "pk": "5d9dc823-5028-44b9-9fb9-9cbb73f1a201",
+    "fields": {
+      "created_at": "2024-07-04T19:50:54.565Z",
+      "restaurant_id": "91c25d35-ee5d-445e-ae71-abcbad45c754",
+      "name": "T2",
+      "capacity": 2
+    }
+  },
+  {
+    "model": "tables.table",
+    "pk": "6348fea4-f00a-442c-8c86-4e64f250a695",
+    "fields": {
+      "created_at": "2024-07-04T19:58:15.350Z",
+      "restaurant_id": "2141d86a-6659-4588-8285-bffed042529e",
+      "name": "4",
+      "capacity": 2
+    }
+  },
+  {
+    "model": "tables.table",
+    "pk": "6536783e-0722-4334-94f7-aeee37dfc886",
+    "fields": {
+      "created_at": "2024-07-04T19:50:48.448Z",
+      "restaurant_id": "91c25d35-ee5d-445e-ae71-abcbad45c754",
+      "name": "T1",
+      "capacity": 2
+    }
+  },
+  {
+    "model": "tables.table",
+    "pk": "68792fab-cebe-4173-a251-13f565173f3d",
+    "fields": {
+      "created_at": "2024-07-04T19:58:35.188Z",
+      "restaurant_id": "2141d86a-6659-4588-8285-bffed042529e",
+      "name": "7",
+      "capacity": 4
+    }
+  },
+  {
+    "model": "tables.table",
+    "pk": "6ba899dc-4a36-4da5-b0a3-a30dc65888b5",
+    "fields": {
+      "created_at": "2024-07-04T19:59:06.207Z",
+      "restaurant_id": "2141d86a-6659-4588-8285-bffed042529e",
+      "name": "11",
+      "capacity": 6
+    }
+  },
+  {
+    "model": "tables.table",
+    "pk": "711645d0-5de0-48ba-bdf7-c31f68d8b587",
+    "fields": {
+      "created_at": "2024-07-04T19:58:46.903Z",
+      "restaurant_id": "2141d86a-6659-4588-8285-bffed042529e",
+      "name": "10",
+      "capacity": 4
+    }
+  },
+  {
+    "model": "tables.table",
+    "pk": "73105bed-d740-4b2c-b183-f006ef446886",
+    "fields": {
+      "created_at": "2024-07-04T19:58:18.238Z",
+      "restaurant_id": "2141d86a-6659-4588-8285-bffed042529e",
+      "name": "5",
+      "capacity": 2
+    }
+  },
+  {
+    "model": "tables.table",
+    "pk": "75da5ef8-7f9f-4720-9290-b94ff44375d1",
+    "fields": {
+      "created_at": "2024-07-04T19:51:28.591Z",
+      "restaurant_id": "91c25d35-ee5d-445e-ae71-abcbad45c754",
+      "name": "T5",
+      "capacity": 4
+    }
+  },
+  {
+    "model": "tables.table",
+    "pk": "78b761b6-3137-476d-9cda-2a13961a87e7",
+    "fields": {
+      "created_at": "2024-07-04T19:58:12.737Z",
+      "restaurant_id": "2141d86a-6659-4588-8285-bffed042529e",
+      "name": "3",
+      "capacity": 2
+    }
+  },
+  {
+    "model": "tables.table",
+    "pk": "7f9f76b9-6970-4673-90f5-a4684237381c",
+    "fields": {
+      "created_at": "2024-07-04T19:56:50.667Z",
+      "restaurant_id": "ffff05d2-1faf-4765-8766-1918a9635a23",
+      "name": "Aguascalientes",
+      "capacity": 4
+    }
+  },
+  {
+    "model": "tables.table",
+    "pk": "8755eac0-1bdb-4d62-9bbf-a73b2639bcc9",
+    "fields": {
+      "created_at": "2024-07-04T19:53:27.363Z",
+      "restaurant_id": "0c827770-4328-49d5-a52a-2c36200f7eeb",
+      "name": "Mesa 1",
+      "capacity": 2
+    }
+  },
+  {
+    "model": "tables.table",
+    "pk": "a14e01b9-ac9d-458a-8da5-1fa2c5d6e3c5",
+    "fields": {
+      "created_at": "2024-07-04T19:59:09.136Z",
+      "restaurant_id": "2141d86a-6659-4588-8285-bffed042529e",
+      "name": "12",
+      "capacity": 6
+    }
+  },
+  {
+    "model": "tables.table",
+    "pk": "b9ebb1f3-2186-4b1f-9b72-a43a3cd3cd44",
+    "fields": {
+      "created_at": "2024-07-04T19:53:51.436Z",
+      "restaurant_id": "0c827770-4328-49d5-a52a-2c36200f7eeb",
+      "name": "Mesa 5",
+      "capacity": 4
+    }
+  },
+  {
+    "model": "tables.table",
+    "pk": "bed4d94b-19c4-4886-ab89-fd1bd922fd46",
+    "fields": {
+      "created_at": "2024-07-04T19:55:31.433Z",
+      "restaurant_id": "ffff05d2-1faf-4765-8766-1918a9635a23",
+      "name": "Tijuana",
+      "capacity": 2
+    }
+  },
+  {
+    "model": "tables.table",
+    "pk": "c1cabb79-018f-49ae-8d4e-e5cd1bdd320c",
+    "fields": {
+      "created_at": "2024-07-04T19:51:01.280Z",
+      "restaurant_id": "91c25d35-ee5d-445e-ae71-abcbad45c754",
+      "name": "T4",
+      "capacity": 2
+    }
+  },
+  {
+    "model": "tables.table",
+    "pk": "c4ed7f77-39bb-4e3d-9c8a-9848b45ad030",
+    "fields": {
+      "created_at": "2024-07-04T19:55:44.628Z",
+      "restaurant_id": "ffff05d2-1faf-4765-8766-1918a9635a23",
+      "name": "León",
+      "capacity": 2
+    }
+  },
+  {
+    "model": "tables.table",
+    "pk": "d6187698-627d-4166-b8ca-fd3dff77befd",
+    "fields": {
+      "created_at": "2024-07-04T19:58:06.490Z",
+      "restaurant_id": "2141d86a-6659-4588-8285-bffed042529e",
+      "name": "1",
+      "capacity": 2
+    }
+  },
+  {
+    "model": "tables.table",
+    "pk": "e20dff2c-4aa0-4708-8f79-d19894a1b2ea",
+    "fields": {
+      "created_at": "2024-07-04T19:56:35.834Z",
+      "restaurant_id": "ffff05d2-1faf-4765-8766-1918a9635a23",
+      "name": "Cancún",
+      "capacity": 4
+    }
+  },
+  {
+    "model": "tables.table",
+    "pk": "e7444659-cce5-40e3-9266-6b32ef8a4ae5",
+    "fields": {
+      "created_at": "2024-07-04T19:59:46.006Z",
+      "restaurant_id": "e295a2ba-a1f5-4904-a5d0-55b18e6b08ba",
+      "name": "B",
+      "capacity": 2
+    }
+  },
+  {
+    "model": "tables.table",
+    "pk": "ebef1c0a-cafc-4db9-8bb9-1dce42f7344f",
+    "fields": {
+      "created_at": "2024-07-04T19:51:36.659Z",
+      "restaurant_id": "91c25d35-ee5d-445e-ae71-abcbad45c754",
+      "name": "T6",
+      "capacity": 4
+    }
+  },
+  {
+    "model": "tables.table",
+    "pk": "f3f9a55e-3d0c-42f0-ae96-202276ad50dc",
+    "fields": {
+      "created_at": "2024-07-04T19:53:48.576Z",
+      "restaurant_id": "0c827770-4328-49d5-a52a-2c36200f7eeb",
+      "name": "Mesa 4",
+      "capacity": 4
+    }
+  },
+  {
+    "model": "tables.table",
+    "pk": "f7adabd8-bca4-443b-ba56-fb4c7ba27caa",
+    "fields": {
+      "created_at": "2024-07-04T19:53:31.808Z",
+      "restaurant_id": "0c827770-4328-49d5-a52a-2c36200f7eeb",
+      "name": "Mesa 2",
+      "capacity": 2
+    }
+  },
+  {
+    "model": "tables.table",
+    "pk": "f841fceb-c000-4d35-9377-cf38e90a7d88",
+    "fields": {
+      "created_at": "2024-07-04T19:55:59.386Z",
+      "restaurant_id": "ffff05d2-1faf-4765-8766-1918a9635a23",
+      "name": "Guadalajara",
+      "capacity": 2
+    }
+  },
+  {
+    "model": "tables.table",
+    "pk": "fc5e4071-4dd4-4a3a-a338-8b3bb348145d",
+    "fields": {
+      "created_at": "2024-07-04T19:51:52.343Z",
+      "restaurant_id": "91c25d35-ee5d-445e-ae71-abcbad45c754",
+      "name": "T7",
+      "capacity": 6
+    }
+  }
+]
