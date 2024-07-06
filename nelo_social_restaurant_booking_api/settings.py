@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'diets',
     'restaurants_diets',
     'tables',
+    'reservations',
 ]
 
 MIDDLEWARE = [
