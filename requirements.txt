@@ -4,4 +4,4 @@ django-cors-headers==4.4.0
 coreapi==2.3.3
 django-filter==24.2
 setuptools==70.1.1
-# adrf==0.1.6
+black==24.4.2
