@@ -8,19 +8,27 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Diet',
+            name="Diet",
             fields=[
-                ('id', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False, unique=True)),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('name', models.TextField(max_length=200, unique=True)),
+                (
+                    "id",
+                    models.UUIDField(
+                        default=uuid.uuid4,
+                        editable=False,
+                        primary_key=True,
+                        serialize=False,
+                        unique=True,
+                    ),
+                ),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                ("name", models.TextField(max_length=200, unique=True)),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
         ),
     ]

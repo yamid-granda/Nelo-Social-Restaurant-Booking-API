@@ -11,6 +11,8 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'nelo_social_restaurant_booking_api.settings')
+os.environ.setdefault(
+    "DJANGO_SETTINGS_MODULE", "nelo_social_restaurant_booking_api.settings"
+)
 
 application = get_wsgi_application()
