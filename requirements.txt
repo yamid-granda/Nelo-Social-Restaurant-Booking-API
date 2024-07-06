@@ -6,3 +6,4 @@ django-filter==24.2
 setuptools==70.1.1
 black==24.4.2
 python-dateutil==2.9.0
+pre-commit==3.7.1
