@@ -32,13 +32,16 @@ class Migration(migrations.Migration):
                 (
                     "diet_id",
                     models.ForeignKey(
-                        on_delete=django.db.models.deletion.PROTECT, to="diets.diet"
+                        on_delete=django.db.models.deletion.PROTECT,
+                        related_name="restaurants",
+                        to="diets.diet",
                     ),
                 ),
                 (
                     "restaurant_id",
                     models.ForeignKey(
                         on_delete=django.db.models.deletion.PROTECT,
+                        related_name="diets",
                         to="restaurants.restaurant",
                     ),
                 ),
