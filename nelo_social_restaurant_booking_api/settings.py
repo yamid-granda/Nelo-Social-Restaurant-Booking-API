@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     "restaurants_diets",
     "tables",
     "reservations",
+    "django_filters",
 ]
 
 MIDDLEWARE = [
@@ -133,3 +134,13 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # cors authorization
 CORS_ALLOW_ALL_ORIGINS = True
+
+# rest framework settings
+REST_FRAMEWORK = {
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
+    "PAGE_SIZE": 100,
+    "DEFAULT_FILTER_BACKENDS": (
+        "rest_framework.filters.OrderingFilter",
+        "django_filters.rest_framework.DjangoFilterBackend",
+    ),
+}
