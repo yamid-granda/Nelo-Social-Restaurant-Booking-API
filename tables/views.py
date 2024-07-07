@@ -1,5 +1,5 @@
 from rest_framework import viewsets
-from .serializers import TableSerializer
+from .serializers.default_serializer import TableSerializer
 from .models import Table
 
 

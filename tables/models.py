@@ -9,7 +9,7 @@ class Table(BaseModel):
     restaurant_id = models.ForeignKey(
         Restaurant,
         on_delete=models.PROTECT,
-        # related_name='restaurants'
+        related_name="tables",
     )
 
     name = models.TextField(max_length=200)
