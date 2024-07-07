@@ -1,5 +1,5 @@
 from rest_framework import viewsets
-from .serializers import RestaurantDietSerializer
+from .serializers.default_serializer import RestaurantDietSerializer
 from .models import RestaurantDiet
 
 

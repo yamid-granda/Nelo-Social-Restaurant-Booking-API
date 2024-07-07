@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import RestaurantDiet
+from ..models import RestaurantDiet
 from restaurants.serializers import RestaurantSerializer
 from diets.serializers import DietSerializer
 

@@ -6,14 +6,10 @@ from diets.models import Diet
 
 class RestaurantDiet(BaseModel):
     restaurant_id = models.ForeignKey(
-        Restaurant,
-        on_delete=models.PROTECT,
-        # related_name='restaurants'
+        Restaurant, on_delete=models.PROTECT, related_name="diets"
     )
     diet_id = models.ForeignKey(
-        Diet,
-        on_delete=models.PROTECT,
-        # related_name='diets'
+        Diet, on_delete=models.PROTECT, related_name="restaurants"
     )
 
     def __str__(self):
