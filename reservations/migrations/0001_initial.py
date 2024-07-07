@@ -30,6 +30,7 @@ class Migration(migrations.Migration):
                 ),
                 ("created_at", models.DateTimeField(auto_now_add=True)),
                 ("datetime", models.DateTimeField()),
+                ("made_out_to", models.TextField(max_length=200)),
                 (
                     "quantity",
                     models.IntegerField(
@@ -144,7 +145,9 @@ class Migration(migrations.Migration):
                 (
                     "table_id",
                     models.ForeignKey(
-                        on_delete=django.db.models.deletion.PROTECT, to="tables.table"
+                        on_delete=django.db.models.deletion.PROTECT,
+                        related_name="reservations",
+                        to="tables.table",
                     ),
                 ),
             ],
