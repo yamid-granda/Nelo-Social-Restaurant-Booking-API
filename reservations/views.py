@@ -1,5 +1,5 @@
 from rest_framework import viewsets
-from .serializers import ReservationSerializer
+from .serializers.default_serializer import ReservationSerializer
 from .models import Reservation
 from rest_framework.exceptions import ValidationError
 from base.utils import get_utc_now

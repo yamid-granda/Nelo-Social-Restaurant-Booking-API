@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Reservation
+from ..models import Reservation
 from restaurants.serializers import RestaurantSerializer
 
 
@@ -12,6 +12,7 @@ class ReservationSerializer(serializers.ModelSerializer):
             "id",
             "datetime",
             "quantity",
+            "made_out_to",
             "table_id",
             "created_at",
         )

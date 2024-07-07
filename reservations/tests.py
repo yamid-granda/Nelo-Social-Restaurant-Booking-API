@@ -2,7 +2,7 @@ from rest_framework.test import APIClient
 from rest_framework.test import APITestCase
 from rest_framework import status
 from dateutil import parser
-from datetime import timedelta, datetime
+from datetime import timedelta
 from base.test_utils import (
     GLUTEN_FREE,
     VEGETARIAN,
@@ -30,9 +30,17 @@ future_utc_date = utc_now + timedelta(days=1)
 body_base = {
     "table_id": table_1_panaderia_rosetta_id,
     "datetime": future_utc_date,
+    "made_out_to": "Test User",
 }
 
-expected_response_keys = ["id", "datetime", "quantity", "table_id", "created_at"]
+expected_response_keys = [
+    "id",
+    "datetime",
+    "quantity",
+    "made_out_to",
+    "table_id",
+    "created_at",
+]
 
 
 class TestConfig(APITestCase):
