@@ -1,42 +1,42 @@
 [
   {
     "model": "restaurants.restaurant",
-    "pk": "0c827770-4328-49d5-a52a-2c36200f7eeb",
-    "fields": {
-      "created_at": "2024-07-04T03:13:45.879Z",
-      "name": "Panadería Rosetta"
-    }
-  },
-  {
-    "model": "restaurants.restaurant",
-    "pk": "2141d86a-6659-4588-8285-bffed042529e",
-    "fields": {
-      "created_at": "2024-07-04T03:14:10.219Z",
-      "name": "Falling Piano Brewing Co"
-    }
-  },
-  {
-    "model": "restaurants.restaurant",
     "pk": "91c25d35-ee5d-445e-ae71-abcbad45c754",
     "fields": {
-      "created_at": "2024-07-04T03:13:28.858Z",
+      "created_at": "2024-07-04T03:13:28.858000Z",
       "name": "Lardo"
     }
   },
   {
     "model": "restaurants.restaurant",
-    "pk": "e295a2ba-a1f5-4904-a5d0-55b18e6b08ba",
+    "pk": "0c827770-4328-49d5-a52a-2c36200f7eeb",
     "fields": {
-      "created_at": "2024-07-04T03:14:25.734Z",
-      "name": "u.to.pi.a"
+      "created_at": "2024-07-04T03:13:45.879000Z",
+      "name": "Panadería Rosetta"
     }
   },
   {
     "model": "restaurants.restaurant",
     "pk": "ffff05d2-1faf-4765-8766-1918a9635a23",
     "fields": {
-      "created_at": "2024-07-04T03:13:59.918Z",
+      "created_at": "2024-07-04T03:13:59.918000Z",
       "name": "Tetetlán"
+    }
+  },
+  {
+    "model": "restaurants.restaurant",
+    "pk": "2141d86a-6659-4588-8285-bffed042529e",
+    "fields": {
+      "created_at": "2024-07-04T03:14:10.219000Z",
+      "name": "Falling Piano Brewing Co"
+    }
+  },
+  {
+    "model": "restaurants.restaurant",
+    "pk": "e295a2ba-a1f5-4904-a5d0-55b18e6b08ba",
+    "fields": {
+      "created_at": "2024-07-04T03:14:25.734000Z",
+      "name": "u.to.pi.a"
     }
   }
 ]
