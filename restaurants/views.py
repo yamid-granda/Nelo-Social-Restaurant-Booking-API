@@ -30,6 +30,14 @@ class RestaurantView(viewsets.ModelViewSet):
     filterset_fields = ("name", "tables", "tables__capacity")
 
     @action(methods=["GET"], detail=False)
+    def details(self, request):
+        queryset = self.filter_queryset(self.get_queryset())
+        page = self.paginate_queryset(queryset)
+
+        serializer = RestaurantDetailsSerializer(page, many=True)
+        return self.get_paginated_response(serializer.data)
+
+    @action(methods=["GET"], detail=False)
     def search(self, request):
         query_params = request.query_params
 
