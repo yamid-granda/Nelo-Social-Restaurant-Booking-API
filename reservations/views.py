@@ -12,12 +12,14 @@ from restaurants_diets.models import RestaurantDiet
 from reservations.models import Reservation
 from datetime import timedelta
 from .configs import RESERVATION_MAX_THRESHOLD_IN_HOURS
+from django.db import transaction
 
 
 class ReservationView(viewsets.ModelViewSet):
     serializer_class = ReservationSerializer
     queryset = Reservation.objects.all()
 
+    @transaction.atomic
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
@@ -25,6 +27,7 @@ class ReservationView(viewsets.ModelViewSet):
 
         self.perform_create(serializer)
         headers = self.get_success_headers(serializer.data)
+
         return Response(
             serializer.data, status=status.HTTP_201_CREATED, headers=headers
         )
