@@ -1,9 +1,9 @@
 from django.core.management import call_command
 import json
-from rest_framework import status
-from reservations.models import Reservation
 from rest_framework.test import APITestCase
-
+from functools import reduce
+from datetime import datetime
+from base.configs import UTC_FORMAT
 
 restaurants_initial_data_path = "restaurants/fixtures/initial-data.json"
 diets_initial_data_path = "diets/fixtures/initial-data.json"
@@ -19,8 +19,14 @@ initial_data_paths = [
 
 
 # http
-def http_post(self, body):
-    response = self.client.post(self.url, body)
+def http_get(self: APITestCase, query_params=None):
+    response = self.client.get(self.url, query_params)
+    data = json.loads(response.content)
+    return data, response
+
+
+def http_post(self: APITestCase, body, url=None):
+    response = self.client.post(url or self.url, body)
     data = json.loads(response.content)
     return data, response
 
@@ -32,12 +38,6 @@ def load_initial_data():
 
 
 # initial data
-GLUTEN_FREE = "Gluten Free"
-VEGETARIAN = "Vegetarian"
-PALEO = "Paleo"
-VEGAN = "Vegan"
-
-
 def get_initial_tables():
     tables_initial_data = open(tables_initial_data_path)
     return json.load(tables_initial_data)
@@ -48,7 +48,107 @@ def get_initial_diets():
     return json.load(diets_initial_data)
 
 
+def get_initial_restaurants():
+    restaurants_initial_data = open(restaurants_initial_data_path)
+    return json.load(restaurants_initial_data)
+
+
 def get_diet_ids_by_names(names: list[str]) -> str:
     diets = get_initial_diets()
     diet_ids = [diet["pk"] for diet in diets if diet["fields"]["name"] in names]
     return " ".join(diet_ids)
+
+
+def get_restaurants_by_names(names: list[str]):
+    restaurants = get_initial_restaurants()
+
+    def reducer(acc, restaurant):
+        if restaurant["fields"]["name"] in names:
+            acc.append(
+                {
+                    "id": restaurant["pk"],
+                    "name": restaurant["fields"]["name"],
+                    "created_at": restaurant["fields"]["created_at"],
+                }
+            )
+        return acc
+
+    return reduce(reducer, restaurants, [])
+
+
+def get_diets_ids_by_names(names: list[str]) -> str:
+    diets = get_initial_diets()
+    diet_ids = [diet["pk"] for diet in diets if diet["fields"]["name"] in names]
+    return ",".join(diet_ids)
+
+
+def get_restaurant_by_name(name: str):
+    restaurants = get_initial_restaurants()
+    return next(
+        restaurant for restaurant in restaurants if restaurant["fields"]["name"] == name
+    )
+
+
+def get_restaurant_tables(name: str):
+    restaurant = get_restaurant_by_name(name)
+    tables = get_initial_tables()
+    return [
+        table
+        for table in tables
+        if table["fields"]["restaurant_id"] == restaurant["pk"]
+    ]
+
+
+def reserve_restaurant_datetime(
+    self, restaurant_name: str, datetime: datetime, is_full=True
+) -> None:
+    url = "/reservations/api/v1/reservations/"
+    body_base = {"datetime": datetime, "made_out_to": "Test User"}
+    restaurant_tables = get_restaurant_tables(restaurant_name)
+
+    if not is_full:
+        restaurant_tables = restaurant_tables[1:]
+
+    for table in restaurant_tables:
+        http_post(self, {**body_base, "table_id": table["pk"]}, url)
+
+
+# diets
+INITIAL_DIETS_FIXTURE = get_initial_diets()
+
+GLUTEN_FREE = INITIAL_DIETS_FIXTURE[0]["fields"]["name"]
+PALEO = INITIAL_DIETS_FIXTURE[1]["fields"]["name"]
+VEGETARIAN = INITIAL_DIETS_FIXTURE[2]["fields"]["name"]
+VEGAN = INITIAL_DIETS_FIXTURE[3]["fields"]["name"]
+
+# restaurants
+INITIAL_RESTAURANTS_FIXTURE = get_initial_restaurants()
+
+LARDO = INITIAL_RESTAURANTS_FIXTURE[0]["fields"]["name"]
+PANADERIA_ROSETTA = INITIAL_RESTAURANTS_FIXTURE[1]["fields"]["name"]
+TETETLAN = INITIAL_RESTAURANTS_FIXTURE[2]["fields"]["name"]
+FALLING_PIANO_BREWING_CO = INITIAL_RESTAURANTS_FIXTURE[3]["fields"]["name"]
+U_TO_PI_A = INITIAL_RESTAURANTS_FIXTURE[4]["fields"]["name"]
+
+
+ALL_RESTAURANTS = get_restaurants_by_names(
+    [
+        LARDO,
+        PANADERIA_ROSETTA,
+        TETETLAN,
+        FALLING_PIANO_BREWING_CO,
+        U_TO_PI_A,
+    ]
+)
+
+
+# date
+def parse_date_to_db_format(str_date: datetime) -> str:
+    return str_date.strftime(UTC_FORMAT)
+
+
+# utils
+def assert_lists_are_equal(self: APITestCase, list1: list, list2: list):
+    self.assertEqual(
+        sorted(list1, key=lambda x: x["id"]), sorted(list2, key=lambda x: x["id"])
+    )
