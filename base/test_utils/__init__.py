@@ -63,12 +63,17 @@ def get_restaurants_by_names(names: list[str]):
     restaurants = get_initial_restaurants()
 
     def reducer(acc, restaurant):
-        if restaurant["fields"]["name"] in names:
+        restaurant_name = restaurant["fields"]["name"]
+        if restaurant_name in names:
+            table_fixtures = get_restaurant_table_fixtures(restaurant_name)
+            tables = [*map(get_restaurant_from_fixture, table_fixtures)]
+
             acc.append(
                 {
                     "id": restaurant["pk"],
                     "name": restaurant["fields"]["name"],
                     "created_at": restaurant["fields"]["created_at"],
+                    "tables": tables,
                 }
             )
         return acc
@@ -89,7 +94,7 @@ def get_restaurant_by_name(name: str):
     )
 
 
-def get_restaurant_tables(name: str):
+def get_restaurant_table_fixtures(name: str):
     restaurant = get_restaurant_by_name(name)
     tables = get_initial_tables()
     return [
@@ -99,12 +104,20 @@ def get_restaurant_tables(name: str):
     ]
 
 
+def get_restaurant_from_fixture(fixture: dict):
+    return {
+        "id": fixture["pk"],
+        "name": fixture["fields"]["name"],
+        "capacity": fixture["fields"]["capacity"],
+    }
+
+
 def reserve_restaurant_datetime(
     self, restaurant_name: str, datetime: datetime, is_full=True
 ) -> None:
     url = "/reservations/api/v1/reservations/"
     body_base = {"datetime": datetime, "made_out_to": "Test User"}
-    restaurant_tables = get_restaurant_tables(restaurant_name)
+    restaurant_tables = get_restaurant_table_fixtures(restaurant_name)
 
     if not is_full:
         restaurant_tables = restaurant_tables[1:]

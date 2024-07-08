@@ -24,7 +24,7 @@ from base.test_utils import (
 )
 from uuid import uuid4
 from django.core.management import call_command
-import json
+from copy import deepcopy
 
 tables = get_initial_tables()
 utc_now = get_utc_now()
@@ -289,7 +289,9 @@ class QueryRestaurantsByDatetime(TestConfig):
         data, _ = http_get(self, query_params)
 
         # THEN
-        assert_lists_are_equal(self, data["results"], ALL_RESTAURANTS)
+        expected_result = deepcopy(ALL_RESTAURANTS)
+        expected_result[1]["tables"] = expected_result[1]["tables"][:1]
+        assert_lists_are_equal(self, data["results"], expected_result)
 
     # threshold limits
     def test_available_at_threshold_bottom(self):
