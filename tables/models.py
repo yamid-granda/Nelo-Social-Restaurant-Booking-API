@@ -24,4 +24,6 @@ class Table(BaseModel):
     )
 
     def __str__(self):
-        return f"{self.name}, capacity: {self.capacity} people"
+        return (
+            f"{self.restaurant_id.name} - {self.name}, capacity: {self.capacity} people"
+        )
