@@ -13,6 +13,7 @@ from reservations.models import Reservation
 from datetime import timedelta
 from .configs import RESERVATION_MAX_THRESHOLD_IN_HOURS
 from django.db import transaction
+from .utils import get_limits_from_date
 
 
 class ReservationView(viewsets.ModelViewSet):
@@ -52,15 +53,14 @@ def is_future_datetime(serializer):
 
 def is_free_datetime(serializer):
     datetime = serializer.validated_data["datetime"]
-    start_date = datetime + timedelta(
-        hours=-RESERVATION_MAX_THRESHOLD_IN_HOURS, seconds=1
-    )
+    min_limit, max_limit = get_limits_from_date(datetime)
     table_id = serializer.validated_data["table_id"].id
 
     try:
         Reservation.objects.get(
-            datetime__range=(start_date, datetime),
             table_id=table_id,
+            datetime__gt=min_limit,
+            datetime__lt=max_limit,
         )
         raise ValidationError("Datetime is not available")
     except Reservation.DoesNotExist:

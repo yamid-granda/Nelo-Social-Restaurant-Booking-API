@@ -16,7 +16,7 @@ from base.test_utils import (
 )
 from base.utils import get_utc_now
 from .models import Reservation
-from .configs import RESERVATION_MAX_THRESHOLD_IN_HOURS
+from .configs import RESERVATION_MAX_THRESHOLD_IN_HOURS as MAX_THRESHOLD
 
 
 # configs
@@ -83,18 +83,31 @@ class CreateToSpecificDates(TestConfig):
         # THEN
         self.assert_creation(response)
 
-    def test_create_in_threshold(self):
+    def test_create_at_allowed_threshold_top(self):
         # GIVEN
         http_post(self, body_base)
-        two_hours_after = future_utc_date + timedelta(
-            hours=RESERVATION_MAX_THRESHOLD_IN_HOURS
-        )
+        allowed_threshold_top = future_utc_date + timedelta(hours=MAX_THRESHOLD)
 
         # WHEN
-        response = http_post(self, {**body_base, "datetime": two_hours_after})
+        response = http_post(self, {**body_base, "datetime": allowed_threshold_top})
 
         # THEN
-        self.assert_creation(response, reservations_count=2, datetime=two_hours_after)
+        self.assert_creation(
+            response, reservations_count=2, datetime=allowed_threshold_top
+        )
+
+    def test_create_at_allowed_threshold_bottom(self):
+        # GIVEN
+        http_post(self, body_base)
+        allowed_threshold_bottom = future_utc_date + timedelta(hours=-MAX_THRESHOLD)
+
+        # WHEN
+        response = http_post(self, {**body_base, "datetime": allowed_threshold_bottom})
+
+        # THEN
+        self.assert_creation(
+            response, reservations_count=2, datetime=allowed_threshold_bottom
+        )
 
     # failure cases
     def test_create_in_past_date(self):
@@ -120,12 +133,22 @@ class CreateToSpecificDates(TestConfig):
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertEqual(data, ["Datetime is not available"])
 
-    def test_create_inside_the_allowed_threshold(self):
+    def test_create_before_allowed_threshold_top(self):
         # GIVEN
         http_post(self, body_base)
-        two_hours_after = future_utc_date + timedelta(
-            hours=RESERVATION_MAX_THRESHOLD_IN_HOURS, seconds=-1
-        )
+        two_hours_after = future_utc_date + timedelta(hours=MAX_THRESHOLD, seconds=-1)
+
+        # WHEN
+        data, response = http_post(self, {**body_base, "datetime": two_hours_after})
+
+        # THEN
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(data, ["Datetime is not available"])
+
+    def test_create_after_allowed_threshold_bottom(self):
+        # GIVEN
+        http_post(self, body_base)
+        two_hours_after = future_utc_date + timedelta(hours=-MAX_THRESHOLD, seconds=1)
 
         # WHEN
         data, response = http_post(self, {**body_base, "datetime": two_hours_after})
