@@ -1,27 +1,10 @@
 from rest_framework import viewsets
-from reservations.configs import RESERVATION_MAX_THRESHOLD_IN_HOURS
 from .serializers import RestaurantSerializer
 from .models import Restaurant
 from rest_framework.decorators import action
-from rest_framework.response import Response
 from .serializers import RestaurantDetailsSerializer, RestaurantSerializer
-from datetime import datetime, timedelta
 from django.db.models import Q
-from base.configs import UTC_FORMAT
-
-
-def get_date_threshold_limits(str_date: str):
-    date = datetime.strptime(str_date, UTC_FORMAT)
-
-    min_limit = (date - timedelta(hours=RESERVATION_MAX_THRESHOLD_IN_HOURS)).strftime(
-        UTC_FORMAT
-    )
-
-    max_limit = (date + timedelta(hours=RESERVATION_MAX_THRESHOLD_IN_HOURS)).strftime(
-        UTC_FORMAT
-    )
-
-    return min_limit, max_limit
+from reservations.utils import get_limits_from_str_date
 
 
 class RestaurantView(viewsets.ModelViewSet):
@@ -53,7 +36,7 @@ class RestaurantView(viewsets.ModelViewSet):
         query_filter = Q(tables__capacity__gte=capacity)
 
         if datetime:
-            min_datetime, max_datetime = get_date_threshold_limits(datetime)
+            min_datetime, max_datetime = get_limits_from_str_date(datetime)
             query_filter &= ~Q(
                 tables__reservations__datetime__gt=min_datetime,
                 tables__reservations__datetime__lt=max_datetime,
@@ -67,5 +50,7 @@ class RestaurantView(viewsets.ModelViewSet):
         restaurants = restaurants.order_by("created_at")
 
         page = self.paginate_queryset(restaurants)
-        serializer = self.get_serializer(page, many=True)
+        serializer = RestaurantDetailsSerializer(
+            page, many=True, context={"request": request}
+        )
         return self.get_paginated_response(serializer.data)
