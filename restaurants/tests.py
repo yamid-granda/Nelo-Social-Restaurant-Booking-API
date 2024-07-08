@@ -103,7 +103,8 @@ class QueryRestaurantsByCapacity(TestConfig):
 
     def test_mid_capacity(self):
         # GIVEN
-        query_params = {"capacity": 4}
+        capacity = 4
+        query_params = {"capacity": capacity}
 
         # WHEN
         data, _ = http_get(self, query_params)
@@ -113,13 +114,14 @@ class QueryRestaurantsByCapacity(TestConfig):
             self,
             data["results"],
             get_restaurants_by_names(
-                [PANADERIA_ROSETTA, LARDO, TETETLAN, FALLING_PIANO_BREWING_CO]
+                [PANADERIA_ROSETTA, LARDO, TETETLAN, FALLING_PIANO_BREWING_CO], capacity
             ),
         )
 
     def test_max_capacity(self):
         # GIVEN
-        query_params = {"capacity": 6}
+        capacity = 6
+        query_params = {"capacity": capacity}
 
         # WHEN
         data, _ = http_get(self, query_params)
@@ -128,7 +130,9 @@ class QueryRestaurantsByCapacity(TestConfig):
         assert_lists_are_equal(
             self,
             data["results"],
-            get_restaurants_by_names([LARDO, TETETLAN, FALLING_PIANO_BREWING_CO]),
+            get_restaurants_by_names(
+                [LARDO, TETETLAN, FALLING_PIANO_BREWING_CO], capacity
+            ),
         )
 
     def test_exceed_max_capacity(self):
@@ -195,6 +199,7 @@ class QueryRestaurantsByDietIds(TestConfig):
 class QueryRestaurantsByCapacityAndDietIds(TestConfig):
     def test_capacity_and_diet(self):
         # GIVEN
+        capacity = 4
         query_params = {
             "capacity": 4,
             "diet_ids": get_diets_ids_by_names([VEGETARIAN]),
@@ -207,13 +212,14 @@ class QueryRestaurantsByCapacityAndDietIds(TestConfig):
         assert_lists_are_equal(
             self,
             data["results"],
-            get_restaurants_by_names([PANADERIA_ROSETTA]),
+            get_restaurants_by_names([PANADERIA_ROSETTA], capacity),
         )
 
     def test_capacity_and_2_diets(self):
         # GIVEN
+        capacity = 6
         query_params = {
-            "capacity": 6,
+            "capacity": capacity,
             "diet_ids": get_diets_ids_by_names([PALEO, GLUTEN_FREE]),
         }
 
@@ -224,13 +230,14 @@ class QueryRestaurantsByCapacityAndDietIds(TestConfig):
         assert_lists_are_equal(
             self,
             data["results"],
-            get_restaurants_by_names([TETETLAN]),
+            get_restaurants_by_names([TETETLAN], capacity),
         )
 
     def test_capacity_and_diet_with_multiple_results(self):
         # GIVEN
+        capacity = 6
         query_params = {
-            "capacity": 6,
+            "capacity": capacity,
             "diet_ids": get_diets_ids_by_names([GLUTEN_FREE]),
         }
 
@@ -241,7 +248,7 @@ class QueryRestaurantsByCapacityAndDietIds(TestConfig):
         assert_lists_are_equal(
             self,
             data["results"],
-            get_restaurants_by_names([TETETLAN, LARDO]),
+            get_restaurants_by_names([TETETLAN, LARDO], capacity),
         )
 
 

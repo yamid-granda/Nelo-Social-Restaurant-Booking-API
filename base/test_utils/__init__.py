@@ -59,14 +59,14 @@ def get_diet_ids_by_names(names: list[str]) -> str:
     return " ".join(diet_ids)
 
 
-def get_restaurants_by_names(names: list[str]):
+def get_restaurants_by_names(names: list[str], capacity: int = 1):
     restaurants = get_initial_restaurants()
 
     def reducer(acc, restaurant):
         restaurant_name = restaurant["fields"]["name"]
         if restaurant_name in names:
-            table_fixtures = get_restaurant_table_fixtures(restaurant_name)
-            tables = [*map(get_restaurant_from_fixture, table_fixtures)]
+            table_fixtures = get_restaurant_table_fixtures(restaurant_name, capacity)
+            tables = [*map(get_table_from_fixture, table_fixtures)]
 
             acc.append(
                 {
@@ -94,17 +94,21 @@ def get_restaurant_by_name(name: str):
     )
 
 
-def get_restaurant_table_fixtures(name: str):
+def get_restaurant_table_fixtures(name: str, capacity: int = 1) -> list[dict]:
     restaurant = get_restaurant_by_name(name)
-    tables = get_initial_tables()
-    return [
-        table
-        for table in tables
-        if table["fields"]["restaurant_id"] == restaurant["pk"]
-    ]
+    table_fixtures = get_initial_tables()
+    tables = []
+
+    for table in table_fixtures:
+        restaurant_id = table["fields"]["restaurant_id"]
+        table_capacity = table["fields"]["capacity"]
+        if restaurant_id == restaurant["pk"] and table_capacity >= capacity:
+            tables.append(table)
+
+    return tables
 
 
-def get_restaurant_from_fixture(fixture: dict):
+def get_table_from_fixture(fixture: dict):
     return {
         "id": fixture["pk"],
         "name": fixture["fields"]["name"],
