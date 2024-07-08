@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "baseUrl": ".", // root of your "paths" below. Required if "paths" is defined
+    "module": "ES2020",
+    "moduleResolution": "node",
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ],
+      "@api/*": [
+        "../*"
+      ] // enables us to use @components/MyComponent
+    },
+    "resolveJsonModule": true,
+    "strict": true,
+    "allowSyntheticDefaultImports": true
+  }
+}

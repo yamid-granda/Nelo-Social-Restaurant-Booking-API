@@ -128,3 +128,9 @@ Control.ca-list
 Control.ca-bundle
 Control.system-ca-bundle
 GitHub.sublime-settings
+
+# node_modules
+node_modules/
+
+# Playwright
+e2e-tests/test-results/

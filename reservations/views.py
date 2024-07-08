@@ -10,10 +10,9 @@ from tables.models import Table
 from restaurants.models import Restaurant
 from restaurants_diets.models import RestaurantDiet
 from reservations.models import Reservation
-from datetime import timedelta
-from .configs import RESERVATION_MAX_THRESHOLD_IN_HOURS
 from django.db import transaction
 from .utils import get_limits_from_date
+from rest_framework.decorators import action
 
 
 class ReservationView(viewsets.ModelViewSet):
@@ -32,6 +31,15 @@ class ReservationView(viewsets.ModelViewSet):
         return Response(
             serializer.data, status=status.HTTP_201_CREATED, headers=headers
         )
+
+    # IMPORTANT:
+    # This endpoint is not part of production code
+    # This facilitates the E2E tests
+    # The real implementation requires an environment variable verification and secret key verification
+    @action(methods=["DELETE"], detail=False)
+    def flush(self, request):
+        Reservation.objects.all().delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 def validate_request(request, serializer):
