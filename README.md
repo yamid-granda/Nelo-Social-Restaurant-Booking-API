@@ -70,3 +70,12 @@ pnpm test
 ## Architecture
 
 Check the Database Model in the `database-model.drawio` file
+
+## Useful Endpoints
+
+- Search Restaurants: `http://127.0.0.1:8000/restaurants/api/v1/restaurants/search/?capacity=4&diet_ids=0a15355d-26fc-4793-8f74-e51b0aa1d968,891efe06-d6da-41ac-92aa-90f0625cc519&datetime=2024-07-17T10:01:00.000Z`
+- Reservations CRUD: `http://127.0.0.1:8000/reservations/api/v1/reservations/`
+- Restaurants CRUD: `http://127.0.0.1:8000/restaurants/api/v1/restaurants/`
+- Diets CRUD: `http://127.0.0.1:8000/diets/api/v1/diets/`
+- Tables CRUD: `http://127.0.0.1:8000/tables/api/v1/tables/`
+- Restaurants Diets CRUD: `http://127.0.0.1:8000/restaurants-diets/api/v1/restaurants-diets/`
