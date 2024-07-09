@@ -1,12 +1,9 @@
-import type { APIRequestContext } from '@playwright/test'
+import { request } from '@playwright/test'
 import type { IApiConfig, IApiMetadata, IApiResponse } from '@/types'
 
-interface IHttpRequestConfig extends IApiConfig {
-  request: APIRequestContext
-}
+interface IHttpRequestConfig extends IApiConfig {}
 
 export async function httpRequest<IResult>({
-  request,
   url,
   method,
   path,
@@ -40,7 +37,8 @@ export async function httpRequest<IResult>({
   let status = 0
 
   try {
-    const requestResponse = await request[method](requestUrl, { data: body })
+    const requestContext = await request.newContext()
+    const requestResponse = await requestContext[method](requestUrl, { data: body })
     status = requestResponse?.status()
     const jsonResponse = await requestResponse?.json()
 

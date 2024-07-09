@@ -8,7 +8,7 @@ import { getDateDbFormatFromStrDate, getTomorrowDate } from '@/utils'
 import { getAvailableRestaurants } from '@/modules/Restaurants/utils/getAvailableRestaurants'
 import type { IMultipleRequestResults } from '@/types'
 
-test('search and reserve with full availability', async ({ request }) => {
+test('search and reserve with full availability', async () => {
   // ------------------------------
   // 1. Restaurant Search
   // ------------------------------
@@ -24,10 +24,7 @@ test('search and reserve with full availability', async ({ request }) => {
   }
 
   // WHEN
-  const { result: availableRestaurants } = await searchRestaurantsFromApi({
-    request,
-    ...searchParams,
-  })
+  const { result: availableRestaurants } = await searchRestaurantsFromApi(searchParams)
 
   // THEN
   expect(availableRestaurants).toEqual(getAvailableRestaurants({
@@ -45,7 +42,6 @@ test('search and reserve with full availability', async ({ request }) => {
 
   // WHEN
   const { result: createResponse } = await createReservation({
-    request,
     body: {
       table_id: availableTableId,
       datetime: tomorrowDate,
@@ -67,7 +63,7 @@ test('search and reserve with full availability', async ({ request }) => {
   })
 })
 
-test('availability reduction', async ({ request }) => {
+test('availability reduction', async () => {
   const expectedResults = [7, 6, 5, 4, 3, 2, 1, 5, 4, 3, 2, 1, 7, 6, 5, 4, 3, 2, 1]
   let restaurantsLength
 
@@ -83,10 +79,7 @@ test('availability reduction', async ({ request }) => {
       dietIds: [DIETS_BY_NAME['Gluten Free'].id],
     }
 
-    const { result: availableRestaurants } = await searchRestaurantsFromApi({
-      request,
-      ...searchParams,
-    })
+    const { result: availableRestaurants } = await searchRestaurantsFromApi(searchParams)
 
     restaurantsLength = availableRestaurants.length
 
@@ -97,7 +90,6 @@ test('availability reduction', async ({ request }) => {
     const availableTables = availableRestaurants[0].tables
 
     await createReservation({
-      request,
       body: {
         table_id: availableTables[0].id,
         datetime: tomorrowDate,
@@ -111,14 +103,14 @@ test('availability reduction', async ({ request }) => {
   }
 })
 
-test('reserve 10 times at the same time', async ({ request }) => {
+test('reserve 10 times at the same time', async () => {
   // GIVEN
   const tomorrowDate = getTomorrowDate()
   const requestsQuantity = 10
 
   const createReservationPromises = Array
     .from({ length: requestsQuantity }, () =>
-      createReservation({ request, body: {
+      createReservation({ body: {
         datetime: tomorrowDate,
         made_out_to: 'Test User',
         quantity: 1,
@@ -142,6 +134,6 @@ test('reserve 10 times at the same time', async ({ request }) => {
   expect(results).toEqual({ success: 1, failed: requestsQuantity - 1 })
 })
 
-test.afterEach(async ({ request }) => {
-  await deleteAllReservations({ request })
+test.afterEach(async () => {
+  await deleteAllReservations()
 })
