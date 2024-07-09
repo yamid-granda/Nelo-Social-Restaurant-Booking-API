@@ -65,7 +65,6 @@ test('search and reserve with full availability', async () => {
 
 test('availability reduction', async () => {
   const expectedResults = [7, 6, 5, 4, 3, 2, 1, 5, 4, 3, 2, 1, 7, 6, 5, 4, 3, 2, 1]
-  let restaurantsLength
 
   for (let index = 0; index < expectedResults.length; index++) {
     // GIVEN
@@ -80,11 +79,6 @@ test('availability reduction', async () => {
     }
 
     const { result: availableRestaurants } = await searchRestaurantsFromApi(searchParams)
-
-    restaurantsLength = availableRestaurants.length
-
-    if (!restaurantsLength)
-      break
 
     // WHEN
     const availableTables = availableRestaurants[0].tables
