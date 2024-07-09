@@ -22,7 +22,7 @@ Hint: remember select the virtual python interpreter (`(venv)` prefix)
 pip install -r requirements.txt
 ```
 
-## Create Database Migrations
+## Migrate Database
 
 ```sh
 python manage.py migrate
@@ -34,15 +34,35 @@ python manage.py migrate
 python manage.py loaddata initial-data
 ```
 
-## Run Development Environment
+## Launch Development Environment
 
 ```sh
 python manage.py runserver
 # go to http://localhost:8000/restaurants/api/v1/restaurants/
 ```
 
-## Run Unit tests
+## Unit Tests
 
 ```sh
 python manage.py test
+```
+
+## API E2E (End to End) Tests
+
+### E2E Environment Requirements
+
+- `node 20` or higher
+- `npm 8.1` or higher
+
+### Run E2E Tests
+
+1. Go to `./e2e-tests` folder
+2. Install dependencies `npm install` or `pnpm install` (recommended)
+3. **Important:** make sure the Django server is running in the root folder `python manage.py runserver`
+4. Run the tests
+
+```sh
+npm run test
+# or
+pnpm test
 ```

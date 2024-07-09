@@ -6,7 +6,7 @@
   "scripts": {
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "test:e2e": "playwright test"
+    "test": "playwright test"
   },
   "dependencies": {
     "@playwright/test": "^1.45.1",
