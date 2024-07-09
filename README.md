@@ -66,3 +66,7 @@ npm run test
 # or
 pnpm test
 ```
+
+## Architecture
+
+Check the Database Model in the `database-model.drawio` file
