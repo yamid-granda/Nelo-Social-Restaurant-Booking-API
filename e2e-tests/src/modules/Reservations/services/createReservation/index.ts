@@ -1,6 +1,6 @@
 import type { APIRequestContext } from '@playwright/test'
-import { CREATE_RESERVATION_API_CONFIG } from '../configs'
-import type { ICreateReservationBody, IReservation } from '../types'
+import { CREATE_RESERVATION_API_CONFIG } from '../../configs'
+import type { ICreateReservationBody, IReservation } from '../../types'
 import { httpRequest } from '@/clients/http'
 
 interface ICreateReservationConfig {

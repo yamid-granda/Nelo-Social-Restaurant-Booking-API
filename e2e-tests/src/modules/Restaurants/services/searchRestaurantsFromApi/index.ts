@@ -1,6 +1,6 @@
 import type { APIRequestContext } from '@playwright/test'
 import { SEARCH_RESTAURANTS_API_CONFIG } from '../../configs'
-import type { IRestaurantAvailability } from '../../types'
+import type { IAvailableRestaurant } from '../../types'
 import { httpRequest } from '@/clients/http'
 
 interface ISearchRestaurantsConfig {
@@ -16,7 +16,7 @@ export async function searchRestaurantsFromApi({
   dateTime,
   dietIds,
 }: ISearchRestaurantsConfig) {
-  return httpRequest<IRestaurantAvailability[]>({
+  return httpRequest<IAvailableRestaurant[]>({
     request,
     ...SEARCH_RESTAURANTS_API_CONFIG,
     searchParams: {

@@ -16,7 +16,7 @@ export async function httpRequest<IResult>({
   let requestUrl = url
 
   if (path)
-    requestUrl = `${url}/${path}/`
+    requestUrl = `${url}${path}/`
 
   if (searchParams) {
     const stringSearchParams = Object
@@ -37,12 +37,11 @@ export async function httpRequest<IResult>({
 
   let result = {} as IResult
   let metadata = {} as IApiMetadata
+  let status = 0
 
   try {
-    console.log('the request url is', requestUrl)
-    console.log('the method is', method)
-
     const requestResponse = await request[method](requestUrl, { data: body })
+    status = requestResponse?.status()
     const jsonResponse = await requestResponse?.json()
 
     result = jsonResponse
@@ -53,10 +52,10 @@ export async function httpRequest<IResult>({
       metadata = rest
     }
 
-    return { result, metadata }
+    return { result, status, metadata }
   }
 
-  catch (error: any) {
-    return { result, metadata }
+  catch {
+    return { result, status, metadata }
   }
 }

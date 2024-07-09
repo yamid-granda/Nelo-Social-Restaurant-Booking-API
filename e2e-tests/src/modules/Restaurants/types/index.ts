@@ -1,12 +1,12 @@
 import type { IPublicDocument } from '@/types'
 
-interface IRestaurantAvailabilityTable {
+interface IAvailableRestaurantTable {
   id: string
   name: string
   capacity: number
 }
 
-export interface IRestaurantAvailability extends IPublicDocument {
+export interface IAvailableRestaurant extends IPublicDocument {
   name: string
-  tables: IRestaurantAvailabilityTable[]
+  tables: IAvailableRestaurantTable[]
 }

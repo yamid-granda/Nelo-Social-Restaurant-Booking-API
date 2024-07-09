@@ -1,15 +1,18 @@
 import test, { expect } from '@playwright/test'
 import TABLES from '@api/tables/fixtures/initial-data.json'
 import { createReservation } from '../services/createReservation'
+import { deleteAllReservations } from '../services/deleteAllReservations'
 import { searchRestaurantsFromApi } from '@/modules/Restaurants/services/searchRestaurantsFromApi'
 import { DIETS_BY_NAME } from '@/modules/Diets/utils'
 import { getDateDbFormatFromStrDate, getTomorrowDate } from '@/utils'
+import { getAvailableRestaurants } from '@/modules/Restaurants/utils/getAvailableRestaurants'
+import type { IMultipleRequestResults } from '@/types'
 
-test.afterEach(async ({ request }) => {
-  await request.delete('/reservations/api/v1/reservations/flush/')
-})
+test('search and reserve with full availability', async ({ request }) => {
+  // ------------------------------
+  // 1. Restaurant Search
+  // ------------------------------
 
-test.only('reserve searching by datetime, diets and capacity', async ({ request }) => {
   // GIVEN
   const tomorrowDate = getTomorrowDate()
   const capacity = 4
@@ -26,16 +29,27 @@ test.only('reserve searching by datetime, diets and capacity', async ({ request 
     ...searchParams,
   })
 
-  console.log({ availableRestaurants: JSON.stringify(availableRestaurants, null, 2) })
+  // THEN
+  expect(availableRestaurants).toEqual(getAvailableRestaurants({
+    names: ['Panadería Rosetta'],
+    capacity,
+  }))
 
+  // ------------------------------
+  // 2. Reservation Creation
+  // ------------------------------
+
+  // GIVEN
   const availableTableId = availableRestaurants[0].tables[0].id
+  const madeOutTo = 'Test User'
 
+  // WHEN
   const { result: createResponse } = await createReservation({
     request,
     body: {
       table_id: availableTableId,
       datetime: tomorrowDate,
-      made_out_to: 'Test User',
+      made_out_to: madeOutTo,
       quantity: capacity,
     },
   })
@@ -46,41 +60,77 @@ test.only('reserve searching by datetime, diets and capacity', async ({ request 
   expect(createResponse).toEqual({
     datetime: expectedDateTime,
     table_id: availableTableId,
-    quantity: 4, // check this
-    made_out_to: 'Test User',
+    quantity: capacity,
+    made_out_to: madeOutTo,
     id: expect.any(String),
     created_at: expect.any(String),
   })
 })
 
-test('send 100 same concurrent reservations at the same time, create just one', async ({ request }) => {
-  // GIVEN
-  const tomorrowDate = new Date()
-  tomorrowDate.setDate(tomorrowDate.getDate() + 1)
-  const datetime = tomorrowDate.toISOString()
+test('availability reduction', async ({ request }) => {
+  const expectedResults = [7, 6, 5, 4, 3, 2, 1, 5, 4, 3, 2, 1, 7, 6, 5, 4, 3, 2, 1]
+  let restaurantsLength
 
-  const data = {
-    table_id: TABLES[0].pk,
-    datetime,
-    made_out_to: 'Test User',
+  for (let index = 0; index < expectedResults.length; index++) {
+    // GIVEN
+    const tomorrowDate = getTomorrowDate()
+    const capacity = 2
+    const madeOutTo = 'Test User'
+
+    const searchParams = {
+      dateTime: tomorrowDate,
+      capacity,
+      dietIds: [DIETS_BY_NAME['Gluten Free'].id],
+    }
+
+    const { result: availableRestaurants } = await searchRestaurantsFromApi({
+      request,
+      ...searchParams,
+    })
+
+    restaurantsLength = availableRestaurants.length
+
+    if (!restaurantsLength)
+      break
+
+    // WHEN
+    const availableTables = availableRestaurants[0].tables
+
+    await createReservation({
+      request,
+      body: {
+        table_id: availableTables[0].id,
+        datetime: tomorrowDate,
+        made_out_to: madeOutTo,
+        quantity: capacity,
+      },
+    })
+
+    // THEN
+    expect(availableTables.length).toBe(expectedResults[index])
   }
+})
+
+test('reserve 10 times at the same time', async ({ request }) => {
+  // GIVEN
+  const tomorrowDate = getTomorrowDate()
+  const requestsQuantity = 10
 
   const createReservationPromises = Array
-    .from({ length: 100 }, () =>
-      request.post('/reservations/api/v1/reservations/', { data }))
+    .from({ length: requestsQuantity }, () =>
+      createReservation({ request, body: {
+        datetime: tomorrowDate,
+        made_out_to: 'Test User',
+        quantity: 1,
+        table_id: TABLES[0].pk,
+      } }))
 
   // WHEN
   const responses = await Promise.allSettled(createReservationPromises)
-
-  interface IMultipleRequestResults {
-    success: number
-    failed: number
-  }
-
   const results: IMultipleRequestResults = { success: 0, failed: 0 }
 
   for (const response of responses) {
-    if (response.status === 'fulfilled' && response.value.status() === 201) {
+    if (response.status === 'fulfilled' && response.value.status === 201) {
       results.success += 1
       continue
     }
@@ -89,5 +139,9 @@ test('send 100 same concurrent reservations at the same time, create just one', 
   }
 
   // THEN
-  expect(results).toEqual({ success: 1, failed: 99 })
+  expect(results).toEqual({ success: 1, failed: requestsQuantity - 1 })
+})
+
+test.afterEach(async ({ request }) => {
+  await deleteAllReservations({ request })
 })

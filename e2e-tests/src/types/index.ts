@@ -22,4 +22,10 @@ export interface IApiMetadata {
 export interface IApiResponse<IResult> {
   result: IResult
   metadata: IApiMetadata
+  status: number
+}
+
+export interface IMultipleRequestResults {
+  success: number
+  failed: number
 }
